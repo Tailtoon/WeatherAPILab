@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  nginx-proxy:
+    restart: always
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+  
+  go-web-app:
+    restart: always
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    environment: 
+      - VIRTUAL_HOST=192.168.1.49, localhost, pc.tailtoon.keenetic.pro
+
+  go-web-app1:
+    restart: always
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    environment: 
+      - VIRTUAL_HOST=192.168.1.49, localhost, pc.tailtoon.keenetic.pro
+    
+  redis:
+    image: "redis:alpine"
+
+    environment:
+     - REDIS_REPLICATION_MODE=master

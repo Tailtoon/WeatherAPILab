@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WassapWeather</title>
+        <link rel="stylesheet" href="static/css/index.css">
+        <script>
+            function getIPFromAmazon() {
+                fetch("http://ip-api.com/json/")
+                .then(res => res.json())
+                .then(data => self.location = "/weather?city=" + data.city)
+            }
+        </script>
+    </head>
+    <body>
+        <div class="main_frame">
+            <div class="intro">WassapWeather</div>
+            <div class="slog">Крутая погода для крутых людей!</div>
+            <div class="work_frame">
+                {{ if .start}}
+                    {{ template "start.html" . }} 
+                {{else}} 
+                    {{ template "weather.html" . }}
+                {{end}}
+            </div>
+        </div>
+    </body>
+</html>
